@@ -1,0 +1,38 @@
+.createNodeForm {
+  background-color: #ffffff;
+  /* width: 50vw; */
+  /* height: 10vh; */
+  border-radius: 8px;
+  border: 2px solid black;
+  padding: 2px;
+}
+
+.createNodeForm button {
+  /* Position inside form */
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  /* General visuals */
+  width: 25px;
+  height: 25px;
+  background-color: black;
+  border: 2px solid black;
+
+  /* Text styling */
+  color: white;
+  line-height: 0px;
+  padding: 0;
+}
+
+.createNodeForm button:hover {
+  background-color: rgb(224, 0, 0);
+}
+
+.form {
+  margin: 5px;
+}
+
+.addButton {
+  margin-left: 100px;
+}

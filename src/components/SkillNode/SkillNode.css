@@ -1,0 +1,31 @@
+.skill-node-inner {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 50%;
+  background: white;
+}
+
+.skill-node-inner:hover {
+  background: rgb(211, 211, 211);
+}
+
+.skill-node-outer {
+  height: 61px;
+  width: 61px;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 50%;
+  background: #c90000;
+  border: 1px solid black;
+  z-index: -1;
+}
+
+.skill-node-locked {
+  background: #c90000;
+}
+
+.skill-node-unlocked {
+  background: #13bc00;
+}

@@ -1,0 +1,29 @@
+.infoPanel {
+  width: 20vw;
+  height: 90vh;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 2px solid black;
+}
+
+.infoPanel button {
+  /* Position inside form */
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  /* General visuals */
+  width: 25px;
+  height: 25px;
+  background-color: black;
+  border: 2px solid black;
+
+  /* Text styling */
+  color: white;
+  line-height: 0px;
+  padding: 0;
+}
+
+.infoPanel button:hover {
+  background-color: rgb(224, 0, 0);
+}
