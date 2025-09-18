@@ -1,4 +1,16 @@
 .handle {
-  background: #ffffff;
   border: 1px solid black;
+  width: 50px;
+}
+
+.unchecked {
+  background: #ffffff;
+}
+
+.valid {
+  background: green;
+}
+
+.invalid {
+  background: red;
 }

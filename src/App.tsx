@@ -27,6 +27,7 @@ import {
 } from "./utils/storageUtil";
 import { defaultEdgeOptions, fitViewOptions } from "./utils/options";
 import SkillInformation from "./components/SkillInformation/SkillInformation";
+import InvalidToast from "./components/InvalidToast/InvalidToast";
 
 const initialNodes = getNodesFromStorage();
 const initialEdges = getEdgesFromStorage();
@@ -97,6 +98,7 @@ const App: FC = () => {
         showInfo={showInfo}
         setShowInfo={setShowInfo}
       />
+      <InvalidToast />
       <Controls />
     </ReactFlow>
   );
