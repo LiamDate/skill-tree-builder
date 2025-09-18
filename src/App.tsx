@@ -19,13 +19,21 @@ import "@xyflow/react/dist/style.css";
 import "./App.css";
 import { nodeTypes } from "./utils/flowTypes";
 import CreateNodeForm from "./components/CreateNodeForm/CreateNodeForm";
-import { loadFromStorage, saveToStorage } from "./utils/storageUtil";
+import {
+  getEdgesFromStorage,
+  getNodesFromStorage,
+  saveEdgesToStorage,
+  saveNodesToStorage,
+} from "./utils/storageUtil";
 import { defaultEdgeOptions, fitViewOptions } from "./utils/options";
 import SkillInformation from "./components/SkillInformation/SkillInformation";
 
+const initialNodes = getNodesFromStorage();
+const initialEdges = getEdgesFromStorage();
+
 const App: FC = () => {
-  const [nodes, setNodes] = useState<Node[]>([]);
-  const [edges, setEdges] = useState<Edge[]>([]);
+  const [nodes, setNodes] = useState<Node[]>(initialNodes);
+  const [edges, setEdges] = useState<Edge[]>(initialEdges);
 
   const [selectedNode, setSelectedNode] = useState<string>("");
   const [showInfo, setShowInfo] = useState<boolean>(false);
@@ -50,14 +58,12 @@ const App: FC = () => {
   const createNode = (node: Node) => {
     const updatedNodes = nodes.concat([node]);
     setNodes(updatedNodes);
-    saveToStorage(updatedNodes, edges);
   };
 
   useEffect(() => {
-    const { nodes: storedNodes, edges: storedEdges } = loadFromStorage();
-    setNodes(storedNodes);
-    setEdges(storedEdges);
-  }, []);
+    saveNodesToStorage(nodes);
+    saveEdgesToStorage(edges);
+  }, [nodes, edges]);
 
   const onNodeClick: NodeMouseHandler<Node> = (_event, node) => {
     setSelectedNode(node.id);
@@ -76,8 +82,6 @@ const App: FC = () => {
       fitViewOptions={fitViewOptions}
       defaultEdgeOptions={defaultEdgeOptions}
       connectionMode={ConnectionMode.Loose}
-      onNodeDragStop={() => saveToStorage(nodes, edges)}
-      onEdgeMouseLeave={() => saveToStorage(nodes, edges)}
       onNodeClick={onNodeClick}
     >
       <Background

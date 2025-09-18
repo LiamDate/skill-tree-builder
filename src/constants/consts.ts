@@ -1,7 +1,8 @@
 const consts = {
   STORAGE_KEYS: {
-    SKILL_NODES: "SkillNodes",
-    CONNECTIONS: "Conections",
+    NODES: "nodes",
+    EDGES: "edges",
+    COMPLETIONS: "completions",
   },
   SKILL_FIELDS: {
     NAME: "name",

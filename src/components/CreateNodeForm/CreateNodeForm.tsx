@@ -1,7 +1,6 @@
 import { useState, type FC } from "react";
-import { type Node, Panel } from "@xyflow/react";
+import { type Node, Panel, useNodes } from "@xyflow/react";
 import "./CreateNodeForm.css";
-import { checkNodeCount } from "../../utils/storageUtil";
 import { capitaliseFirstLetter } from "../../utils/generalUtils";
 import consts from "../../constants/consts";
 
@@ -21,17 +20,19 @@ const validateFields = (ids: string[]) => {
     if (!isFieldValid) {
       const capitalisedId = capitaliseFirstLetter(id);
       isValid = false;
-      failMessges.push(`${capitalisedId} field is invalid`);
+      failMessges.push(`${capitalisedId} field is invalid.`);
     }
   });
   if (!isValid) {
-    alert(failMessges);
+    alert(failMessges.join("\n"));
   }
   return { isValid, values };
 };
 
 const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
   const [addMenuOpen, setAddMenuOpen] = useState<boolean>(false);
+
+  const nodes = useNodes();
 
   const addNewNode = () => {
     const { isValid, values } = validateFields([
@@ -49,7 +50,7 @@ const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
     const cost = values[consts.SKILL_FIELDS.COST];
 
     const newNode: Node = {
-      id: (checkNodeCount() + 1).toString(),
+      id: (nodes.length + 1).toString(),
       type: "skillNode",
       position: { x: 0, y: 0 },
       data: { name, description, cost },
@@ -62,7 +63,9 @@ const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
       {addMenuOpen ? (
         <div className="createNodeForm">
           <div className="form">
-            <label htmlFor={consts.SKILL_FIELDS.NAME}>Name: </label>
+            <label htmlFor={consts.SKILL_FIELDS.NAME}>
+              Name (15 characters max):{" "}
+            </label>
             <input
               type="text"
               id={consts.SKILL_FIELDS.NAME}
@@ -70,6 +73,7 @@ const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
               placeholder="Enter a name for your skill..."
               required
               size={30}
+              maxLength={15}
             />
             <br />
             <label htmlFor={consts.SKILL_FIELDS.DESCRIPTION}>
