@@ -13,8 +13,15 @@ export const defaultEdgeOptions: DefaultEdgeOptions = {
   deletable: true,
   markerEnd: {
     type: MarkerType.ArrowClosed,
-    height: 15,
-    width: 15,
+    height: 20,
+    width: 20,
+    color: "gold",
   },
   selectable: true,
+  style: {
+    strokeWidth: 2,
+    stroke: "gold",
+    strokeDasharray: "5, 2",
+  },
+  type: "smoothstep",
 };

@@ -21,7 +21,7 @@ const SkillInformationPanel: FC<ISkillInformationPanel> = ({
   }
 
   return (
-    <Panel position="center-right">
+    <Panel position="top-right">
       {showInfo && (
         <div className="infoPanel">
           {entries.map((entry) => {
