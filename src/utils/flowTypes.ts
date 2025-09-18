@@ -1,5 +1,5 @@
 import type { NodeTypes } from "@xyflow/react";
-import SkillNode from "../components/SkillNode/SkillNode";
+import SkillNode from "../components/SkillNode";
 
 const nodeTypes: NodeTypes = {
   skillNode: SkillNode,

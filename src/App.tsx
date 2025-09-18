@@ -18,7 +18,9 @@ import {
 import "@xyflow/react/dist/style.css";
 import "./App.css";
 import { nodeTypes } from "./utils/flowTypes";
-import CreateNodeForm from "./components/CreateNodeForm/CreateNodeForm";
+import CreateNodeForm from "./components/CreateNodeForm";
+import SkillInformationPanel from "./components/SkillInformationPanel";
+import InvalidToast from "./components/InvalidToast";
 import {
   getEdgesFromStorage,
   getNodesFromStorage,
@@ -26,8 +28,6 @@ import {
   saveNodesToStorage,
 } from "./utils/storageUtil";
 import { defaultEdgeOptions, fitViewOptions } from "./utils/options";
-import SkillInformation from "./components/SkillInformation/SkillInformation";
-import InvalidToast from "./components/InvalidToast/InvalidToast";
 
 const initialNodes = getNodesFromStorage();
 const initialEdges = getEdgesFromStorage();
@@ -93,7 +93,7 @@ const App: FC = () => {
         bgColor="#55555cff"
       />
       <CreateNodeForm createNode={createNode} />
-      <SkillInformation
+      <SkillInformationPanel
         id={selectedNode}
         showInfo={showInfo}
         setShowInfo={setShowInfo}

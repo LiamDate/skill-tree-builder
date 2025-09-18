@@ -1,15 +1,15 @@
 import { Panel, useNodesData } from "@xyflow/react";
 import { type FC } from "react";
-import "./SkillInformation.css";
 import { capitaliseFirstLetter } from "../../utils/generalUtils";
+import "./SkillInformationPanel.css";
 
-interface ISkillInformation {
+interface ISkillInformationPanel {
   id: string;
   showInfo: boolean;
   setShowInfo: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SkillInformation: FC<ISkillInformation> = ({
+const SkillInformationPanel: FC<ISkillInformationPanel> = ({
   id,
   showInfo,
   setShowInfo,
@@ -38,4 +38,4 @@ const SkillInformation: FC<ISkillInformation> = ({
   );
 };
 
-export default SkillInformation;
+export default SkillInformationPanel;

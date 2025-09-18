@@ -1,8 +1,8 @@
 import { useState, type FC } from "react";
 import { type Node, Panel, useNodes } from "@xyflow/react";
-import "./CreateNodeForm.css";
 import { capitaliseFirstLetter } from "../../utils/generalUtils";
 import consts from "../../constants/consts";
+import "./CreateNodeForm.css";
 
 interface ICreateNodeForm {
   createNode: (node: Node) => void;
