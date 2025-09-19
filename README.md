@@ -8,3 +8,18 @@ Run the following commands
 
 1. npm install
 1. npm run start
+
+## Completed Bonus
+
+I implemented the `Prevent Cycles` bonus.
+
+## Disclosure
+
+No AI tools were used when making this application.
+
+## User instructions
+
+- To create a skill, click the `Add Skill` button in the top left corner and fill in the form.
+- To view a skills details, click on that skill.
+- To complete a skill, double click on that skill.
+- To add a prerequisite, draw a line from one skills handle to the other.

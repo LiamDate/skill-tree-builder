@@ -1,5 +1,5 @@
 import { Panel, useNodesData } from "@xyflow/react";
-import { type FC } from "react";
+import { useMemo, type FC } from "react";
 import { capitaliseFirstLetter } from "../../utils/generalUtils";
 import "./SkillInformationPanel.css";
 
@@ -9,22 +9,34 @@ interface ISkillInformationPanel {
   setShowInfo: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/**
+ * Panel component that displays the information for a selected skill
+ * @typedef {object} ISkillInformationPanel
+ * @property {string} id - ID of the selected node.
+ * @property {boolean} showInfo - Whether the panel should be shown or not.
+ * @property {React.Dispatch<React.SetStateAction<boolean>>} setShowInfo - Setter that closes the panel.
+ *
+ * @param {ISkillInformationPanel} props - The props for the skill information panel component.
+ * @returns {FC} The skill information panel component.
+ */
 const SkillInformationPanel: FC<ISkillInformationPanel> = ({
   id,
   showInfo,
   setShowInfo,
 }) => {
+  // Gets the node data and converts it to a useable format
   const nodeData = useNodesData(id)?.data;
-  let entries: [string, unknown][] = [];
-  if (nodeData) {
-    entries = Object.entries(nodeData);
-  }
+  const entries = useMemo(() => {
+    if (nodeData) {
+      return Object.entries(nodeData);
+    }
+  }, [nodeData]);
 
   return (
     <Panel position="top-right">
       {showInfo && (
         <div className="infoPanel">
-          {entries.map((entry) => {
+          {entries?.map((entry) => {
             return (
               <div key={entry[0]}>
                 {capitaliseFirstLetter(entry[0])}: {entry[1] as string}

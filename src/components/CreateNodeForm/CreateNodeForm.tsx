@@ -1,21 +1,35 @@
 import { useState, type FC } from "react";
-import { type Node, Panel, useNodes } from "@xyflow/react";
+import { type Node, Panel } from "@xyflow/react";
 import { capitaliseFirstLetter } from "../../utils/generalUtils";
 import consts from "../../constants/consts";
 import "./CreateNodeForm.css";
+import { getNodesFromStorage } from "../../utils/storageUtil";
 
 interface ICreateNodeForm {
   createNode: (node: Node) => void;
 }
 
-const validateFields = (ids: string[]) => {
+interface IValidateFieldsResult {
+  isValid: boolean;
+  values: Record<string, string>;
+}
+
+/**
+ * Validates the input fields in the form.
+ * @param {string[]} ids - The IDs of the input elements.
+ * @returns {IValidateFieldsResult} An object containing whether the fields are valid, and the values in those fields.
+ */
+const validateFields = (ids: string[]): IValidateFieldsResult => {
   let isValid = true;
   const failMessges: string[] = [];
   const values: Record<string, string> = {};
 
+  // Loops through the passed in IDs and gets each of their elements
   ids.forEach((id) => {
     const inputField = document.getElementById(id) as HTMLInputElement;
     values[id] = inputField.value;
+
+    // If a field is invalid, add an error message
     const isFieldValid = inputField.checkValidity();
     if (!isFieldValid) {
       const capitalisedId = capitaliseFirstLetter(id);
@@ -23,18 +37,32 @@ const validateFields = (ids: string[]) => {
       failMessges.push(`${capitalisedId} field is invalid.`);
     }
   });
+
+  // If any fields are invalid, display the error messages in an alert
   if (!isValid) {
     alert(failMessges.join("\n"));
   }
+
   return { isValid, values };
 };
 
+/**
+ * Form component that lets users create new skill nodes.
+ * @typedef {object} ICreateNodeForm
+ * @property {function(code: Node): void} createNode - Method which adds the new node to the nodes array.
+ *
+ * @param {ICreateNodeForm} props - The props for the create node form component
+ * @returns {FC} The create node form component
+ */
 const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
   const [addMenuOpen, setAddMenuOpen] = useState<boolean>(false);
 
-  const nodes = useNodes();
+  /**
+   * Checks whether the form passes validation and creates the new node if it does.
+   */
+  const addNewNode = (): void => {
+    const nodes = getNodesFromStorage();
 
-  const addNewNode = () => {
     const { isValid, values } = validateFields([
       consts.SKILL_FIELDS.NAME,
       consts.SKILL_FIELDS.DESCRIPTION,

@@ -13,6 +13,10 @@ import {
   getCompletionsFromStorage,
 } from "../../utils/storageUtil";
 
+/**
+ * Custom node component that represents user-inputted skill.
+ * @returns {FC} The skill node component.
+ */
 const SkillNode: FC = () => {
   const [prerequisitesComplete, setPrerequisitesComplete] =
     useState<boolean>(false);
@@ -28,31 +32,38 @@ const SkillNode: FC = () => {
     setLocked(!isComplete);
   }, [prerequisitesComplete]);
 
+  // Gets the class name depending on whether the cell is locked or not
   const outerClassName = useMemo(
     () =>
       `skill-node-outer ${locked ? "skill-node-locked" : "skill-node-unlocked"}`,
     [locked],
   );
 
+  /**
+   * Checks whether the prerequisites for a node are complete before completing the node.
+   */
   const checkPrerequisites = () => {
     const storedCompletions = getCompletionsFromStorage();
 
-    let prerequisiteCounter = 0;
-    let prerequisites = 0;
+    let arePrerequisitesComplete = false;
+    let totalPrerequisites = 0;
+    let completePrerequisites = 0;
 
+    // Loops through all connections to the current nodes
     nodeConnections.forEach((connection) => {
+      // Checks whether the curent connection is a prerequisite
       if (connection.target === nodeId) {
-        prerequisiteCounter += 1;
+        totalPrerequisites += 1;
+        // Checks whether the prerequisite is complete
         const isPrerequisiteComplete = storedCompletions.get(connection.source);
         if (isPrerequisiteComplete) {
-          prerequisites += 1;
+          completePrerequisites += 1;
         }
       }
     });
 
-    let arePrerequisitesComplete = false;
-
-    if (prerequisiteCounter === prerequisites) {
+    // If all prerequisites are complete, complete this skill. Otherwise display an error.
+    if (totalPrerequisites === completePrerequisites) {
       arePrerequisitesComplete = true;
       setPrerequisitesComplete(true);
     } else {
@@ -61,6 +72,7 @@ const SkillNode: FC = () => {
       );
     }
 
+    // Store the completion status of this node.
     addCompletionToStorage(nodeId, arePrerequisitesComplete);
   };
 
