@@ -97,35 +97,37 @@ const App: FC = () => {
   };
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      nodeTypes={nodeTypes}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      fitView
-      fitViewOptions={fitViewOptions}
-      defaultEdgeOptions={defaultEdgeOptions}
-      connectionMode={ConnectionMode.Loose}
-      onNodeClick={onNodeClick}
-    >
-      <Background
-        variant={BackgroundVariant.Cross}
-        gap={100}
-        lineWidth={2}
-        color="#090b6eff"
-        bgColor="#55555cff"
-      />
-      <CreateNodeForm createNode={createNode} />
-      <SkillInformationPanel
-        id={selectedNode}
-        showInfo={showInfo}
-        setShowInfo={setShowInfo}
-      />
-      <InvalidToast />
-      <Controls />
-    </ReactFlow>
+    <div className="app">
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        nodeTypes={nodeTypes}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        fitView
+        fitViewOptions={fitViewOptions}
+        defaultEdgeOptions={defaultEdgeOptions}
+        connectionMode={ConnectionMode.Loose}
+        onNodeClick={onNodeClick}
+      >
+        <Background
+          variant={BackgroundVariant.Cross}
+          gap={100}
+          lineWidth={2}
+          color="#090b6eff"
+          bgColor="#55555cff"
+        />
+        <CreateNodeForm createNode={createNode} />
+        <SkillInformationPanel
+          id={selectedNode}
+          showInfo={showInfo}
+          setShowInfo={setShowInfo}
+        />
+        <InvalidToast />
+        <Controls />
+      </ReactFlow>
+    </div>
   );
 };
 

@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+import type { ReactElement } from "react";
+import { ConnectionMode, ReactFlow, type ReactFlowProps } from "@xyflow/react";
+import { fitViewOptions } from "../../src/utils/options";
+
 Cypress.Commands.add("getByTestId", (testId: string) => {
   return cy.get(`[data-testid="${testId}"]`);
 });
@@ -23,12 +27,40 @@ Cypress.Commands.add("fillCreateNodeForm", (fields: ICreateFormFields) => {
   }
 });
 
+Cypress.Commands.add("clearCreateNodeForm", () => {
+  cy.getByTestId("name-input-field").clear();
+  cy.getByTestId("description-input-field").clear();
+  cy.getByTestId("cost-input-field").clear();
+});
+
+Cypress.Commands.add(
+  "mountFlowComponent",
+  (component: ReactElement, flowProps?: ReactFlowProps) => {
+    cy.mount(
+      <ReactFlow
+        nodes={flowProps?.nodes ?? []}
+        edges={flowProps?.edges ?? []}
+        fitView
+        fitViewOptions={fitViewOptions}
+        connectionMode={ConnectionMode.Loose}
+      >
+        {component}
+      </ReactFlow>,
+    );
+  },
+);
+
 declare global {
   namespace Cypress {
     interface Chainable {
       getByTestId(testId: string): Chainable<JQuery<HTMLElement>>;
       openCreateNodeForm(): Chainable<void>;
       fillCreateNodeForm(fields: ICreateFormFields): Chainable<void>;
+      clearCreateNodeForm(): Chainable<void>;
+      mountFlowComponent(
+        component: ReactElement,
+        flowProps?: ReactFlowProps,
+      ): Chainable<void>;
     }
   }
 }

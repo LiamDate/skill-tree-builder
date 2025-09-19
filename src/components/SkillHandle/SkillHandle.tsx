@@ -113,6 +113,7 @@ const SkillHandle: FC<ISkillHandleProps> = ({ position, id }) => {
       isValidConnection={isValidConnection}
       className={`handle ${colourClassName}`}
       id={id}
+      data-testid={`skill-handle-${id}-${position}`}
     />
   );
 };

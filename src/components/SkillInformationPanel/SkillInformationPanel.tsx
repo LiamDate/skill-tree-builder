@@ -35,15 +35,18 @@ const SkillInformationPanel: FC<ISkillInformationPanel> = ({
   return (
     <Panel position="top-right">
       {showInfo && (
-        <div className="infoPanel">
-          {entries?.map((entry) => {
-            return (
-              <div key={entry[0]}>
-                {capitaliseFirstLetter(entry[0])}: {entry[1] as string}
-              </div>
-            );
-          })}
-          <button onClick={() => setShowInfo(false)}>×</button>
+        <div className="infoPanel" data-testid="skill-information-panel">
+          {entries?.map((entry) => (
+            <div key={entry[0]} data-testid={`skill-field-${entry[0]}`}>
+              {capitaliseFirstLetter(entry[0])}: {entry[1] as string}
+            </div>
+          ))}
+          <button
+            onClick={() => setShowInfo(false)}
+            data-testid="close-skill-information-button"
+          >
+            ×
+          </button>
         </div>
       )}
     </Panel>

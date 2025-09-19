@@ -77,10 +77,11 @@ const SkillNode: FC = () => {
   };
 
   return (
-    <div className={outerClassName}>
+    <div className={outerClassName} data-testid={`skill-node-${nodeId}`}>
       <div
         className="skill-node-inner"
         onDoubleClick={() => checkPrerequisites()}
+        data-testid={`skill-node-inner-${nodeId}`}
       >
         {nodeData && (nodeData[consts.SKILL_FIELDS.NAME] as string)}
       </div>
