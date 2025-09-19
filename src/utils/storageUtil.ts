@@ -9,7 +9,11 @@ export const getNodesFromStorage = (): Node[] => {
   let nodes: Node[] = [];
   const storedNodes = localStorage.getItem(consts.STORAGE_KEYS.NODES);
   if (storedNodes) {
-    nodes = JSON.parse(storedNodes);
+    try {
+      nodes = JSON.parse(storedNodes);
+    } catch {
+      console.error("Invalid JSON string stored in nodes store");
+    }
   }
   return nodes;
 };
@@ -30,7 +34,11 @@ export const getEdgesFromStorage = (): Edge[] => {
   let edges: Edge[] = [];
   const storedEdges = localStorage.getItem(consts.STORAGE_KEYS.EDGES);
   if (storedEdges) {
-    edges = JSON.parse(storedEdges);
+    try {
+      edges = JSON.parse(storedEdges);
+    } catch {
+      console.error("Invalid JSON string stored in edges store");
+    }
   }
   return edges;
 };
@@ -53,7 +61,11 @@ export const getCompletionsFromStorage = () => {
     consts.STORAGE_KEYS.COMPLETIONS,
   );
   if (storedCompletions) {
-    completions = new Map(JSON.parse(storedCompletions));
+    try {
+      completions = new Map(JSON.parse(storedCompletions));
+    } catch {
+      console.error("Invalid JSON string stored in completions store");
+    }
   }
   return completions;
 };
