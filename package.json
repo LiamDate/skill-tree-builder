@@ -11,7 +11,8 @@
     "prepare": "husky",
     "format": "prettier --check .",
     "format:fix": "prettier --write --list-different .",
-    "test": "vitest"
+    "test": "vitest",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@xyflow/react": "^12.8.4",
@@ -23,6 +24,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "cypress": "^15.2.0",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^5.2.0",

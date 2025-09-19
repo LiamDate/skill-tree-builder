@@ -89,7 +89,7 @@ const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
   return (
     <Panel position="top-left">
       {addMenuOpen ? (
-        <div className="createNodeForm">
+        <div className="createNodeForm" data-testid="create-node-form">
           <div className="form">
             <label htmlFor={consts.SKILL_FIELDS.NAME}>
               Name (15 characters max):{" "}
@@ -102,6 +102,7 @@ const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
               required
               size={30}
               maxLength={15}
+              data-testid="name-input-field"
             />
             <br />
             <label htmlFor={consts.SKILL_FIELDS.DESCRIPTION}>
@@ -114,6 +115,7 @@ const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
               placeholder="Enter a description for your skill..."
               required
               size={30}
+              data-testid="description-input-field"
             />
             <br />
             <label htmlFor={consts.SKILL_FIELDS.COST}>Cost (optional): </label>
@@ -123,18 +125,30 @@ const CreateNodeForm: FC<ICreateNodeForm> = ({ createNode }) => {
               name={consts.SKILL_FIELDS.COST}
               placeholder="Enter a cost for your skill..."
               size={30}
+              data-testid="cost-input-field"
             />
             <input
               className="addButton"
               type="submit"
               value="Add Skill"
               onClick={() => addNewNode()}
+              data-testid="add-skill-button"
             />
           </div>
-          <button onClick={() => setAddMenuOpen(false)}>×</button>
+          <button
+            onClick={() => setAddMenuOpen(false)}
+            data-testid="close-form-button"
+          >
+            ×
+          </button>
         </div>
       ) : (
-        <button onClick={() => setAddMenuOpen(true)}>Add Skill</button>
+        <button
+          onClick={() => setAddMenuOpen(true)}
+          data-testid="open-form-button"
+        >
+          Add Skill
+        </button>
       )}
     </Panel>
   );

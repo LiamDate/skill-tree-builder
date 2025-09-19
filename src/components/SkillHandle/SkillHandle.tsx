@@ -96,7 +96,7 @@ const SkillHandle: FC<ISkillHandleProps> = ({ position, id }) => {
 
     // If the connection isn't valid, temporarily display the invalid toast
     if (!validConnection) {
-      var toast = document.getElementById("toast");
+      const toast = document.getElementById("toast");
       toast?.setAttribute("class", "show");
       setTimeout(function () {
         toast?.setAttribute("class", "");
