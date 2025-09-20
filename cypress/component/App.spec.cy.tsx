@@ -1,6 +1,14 @@
 import App from "../../src/App";
 import consts from "../../src/constants/consts";
 
+/**
+ * Note: If you run these tests previously and then try to run them again, they might fail as
+ * Cypress doesn't always tear down the local store properly. Adding manual store teardowns to
+ * the tests doesn't fix this. To fix this, clear the local store manually and run the tests again.
+ *
+ * This is an issue with how Cypress interacts with the local store, not my code.
+ */
+
 describe("<App />", () => {
   it("adds a node to the screen via the form", () => {
     cy.mount(<App />);
@@ -340,6 +348,46 @@ describe("<App />", () => {
   });
 
   context("which doesn't allow circular dependencies", () => {
+    it("allows loops if they're not circular dependencies", () => {
+      cy.mount(<App />);
+
+      cy.createNewNodes([
+        { name: "Mobility", description: "Movement" },
+        { name: "Agility", description: "Speed" },
+        { name: "Capability", description: "Competence" },
+      ]);
+
+      cy.zoomOut();
+
+      cy.moveNode("3", 0, 400);
+      cy.moveNode("2", 200, 200);
+
+      cy.connectNodes(
+        { nodeId: "1", handlePosition: "bottom" },
+        { nodeId: "2", handlePosition: "top" },
+      );
+
+      cy.getByTestId("toast").should("not.be.visible");
+
+      cy.connectNodes(
+        { nodeId: "2", handlePosition: "bottom" },
+        { nodeId: "3", handlePosition: "top" },
+      );
+
+      cy.getByTestId("toast").should("not.be.visible");
+
+      cy.connectNodes(
+        { nodeId: "1", handlePosition: "bottom" },
+        { nodeId: "3", handlePosition: "top" },
+      );
+
+      cy.getByTestId("toast").should("not.be.visible");
+
+      cy.checkStoreSize([
+        { storageKey: consts.STORAGE_KEYS.EDGES, expectedSize: 3 },
+      ]);
+    });
+
     it("doesn't allow circular dependencies between 2 nodes", () => {
       cy.mount(<App />);
 
@@ -450,6 +498,55 @@ describe("<App />", () => {
 
       cy.connectNodes(
         { nodeId: "4", handlePosition: "bottom" },
+        { nodeId: "1", handlePosition: "top" },
+      );
+
+      cy.getByTestId("toast").should("be.visible");
+
+      cy.checkStoreSize([
+        { storageKey: consts.STORAGE_KEYS.EDGES, expectedSize: 3 },
+      ]);
+    });
+
+    it("doesn't allow circular dependencies between 3 nodes, with other nodes also in the chain", () => {
+      cy.mount(<App />);
+
+      cy.createNewNodes([
+        { name: "Mobility", description: "Movement" },
+        { name: "Agility", description: "Speed" },
+        { name: "Capability", description: "Competence" },
+        { name: "Ability", description: "Skill" },
+      ]);
+
+      cy.zoomOut();
+
+      cy.moveNode("4", -200, 200);
+      cy.moveNode("3", 0, 400);
+      cy.moveNode("2", 200, 200);
+
+      cy.connectNodes(
+        { nodeId: "1", handlePosition: "bottom" },
+        { nodeId: "2", handlePosition: "top" },
+      );
+
+      cy.getByTestId("toast").should("not.be.visible");
+
+      cy.connectNodes(
+        { nodeId: "2", handlePosition: "bottom" },
+        { nodeId: "3", handlePosition: "top" },
+      );
+
+      cy.getByTestId("toast").should("not.be.visible");
+
+      cy.connectNodes(
+        { nodeId: "3", handlePosition: "bottom" },
+        { nodeId: "4", handlePosition: "top" },
+      );
+
+      cy.getByTestId("toast").should("not.be.visible");
+
+      cy.connectNodes(
+        { nodeId: "3", handlePosition: "bottom" },
         { nodeId: "1", handlePosition: "top" },
       );
 

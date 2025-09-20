@@ -148,7 +148,6 @@ Cypress.Commands.add(
     cy.getByTestId(
       `skill-handle-${targetNode.nodeId}-${targetNode.handlePosition}`,
     )
-      .scrollIntoView()
       .realMouseMove(0, 0, { position: "center" })
       .realMouseUp();
   },
