@@ -22,7 +22,7 @@ const SkillNode: FC = () => {
     useState<boolean>(false);
   const [locked, setLocked] = useState<boolean>(true);
 
-  const nodeId = useNodeId() ?? "";
+  const nodeId = useNodeId() ?? "1";
   const nodeData = useNodesData(nodeId)?.data;
   const nodeConnections = useNodeConnections({ id: nodeId });
 

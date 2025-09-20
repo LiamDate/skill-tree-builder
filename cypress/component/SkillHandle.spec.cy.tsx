@@ -8,12 +8,12 @@ describe("<SkillHandle />", () => {
 
     cy.mountFlowComponent(<SkillHandle position={position} id={id} />);
 
-    cy.getByTestId(`skill-handle-${id}-${position}`).should(
+    cy.getByTestId(`skill-handle-null-${id}`).should(
       "have.attr",
       "data-handleid",
       id,
     );
-    cy.getByTestId(`skill-handle-${id}-${position}`).should(
+    cy.getByTestId(`skill-handle-null-${id}`).should(
       "have.attr",
       "data-handlepos",
       position,
