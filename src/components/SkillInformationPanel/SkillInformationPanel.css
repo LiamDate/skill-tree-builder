@@ -1,4 +1,4 @@
-.infoPanel {
+.info-panel {
   width: 20vw;
   height: 30vh;
   background-color: #ffffff;
@@ -9,7 +9,7 @@
   word-break: break-all;
 }
 
-.infoPanel button {
+.info-panel button {
   /* Position inside form */
   position: absolute;
   right: 0;
@@ -27,6 +27,6 @@
   line-height: 0px;
 }
 
-.infoPanel button:hover {
+.info-panel button:hover {
   background-color: #e00000;
 }

@@ -35,7 +35,7 @@ const SkillInformationPanel: FC<ISkillInformationPanel> = ({
   return (
     <Panel position="top-right">
       {showInfo && (
-        <div className="infoPanel" data-testid="skill-information-panel">
+        <div className="info-panel" data-testid="skill-information-panel">
           {entries?.map((entry) => (
             <div key={entry[0]} data-testid={`skill-field-${entry[0]}`}>
               {capitaliseFirstLetter(entry[0])}: {entry[1] as string}
