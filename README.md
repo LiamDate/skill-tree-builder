@@ -4,10 +4,12 @@ React app that allows users to create and navigate a personalized skill tree.
 
 ## Setup instructions
 
-Run the following commands
+Run the following commands:
 
-1. npm install
-1. npm run start
+```
+npm install
+npm run start
+```
 
 ## Completed Bonus
 
@@ -23,3 +25,21 @@ No AI tools were used when making this application.
 - To view a skills details, click on that skill.
 - To complete a skill, double click on that skill.
 - To add a prerequisite, draw a line from one skills handle to the other.
+
+## Testing
+
+- I have used Vitest for the util unit tests, and Cypress for the component tests.
+- The unit tests sit inside `__tests__` in the utils folder, whereas the component tests sit inside the `cypress` area of the repo.
+- To run each set of tests, run:
+
+```
+npm run test:unit
+```
+
+and
+
+```
+npm run test:component
+```
+
+respectively.
