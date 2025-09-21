@@ -86,9 +86,7 @@ describe("<App />", () => {
   it("stores new nodes in local storage", () => {
     cy.mount(<App />);
 
-    cy.checkStoreSize([
-      { storageKey: consts.STORAGE_KEYS.NODES, expectedSize: 0 },
-    ]);
+    cy.checkEmptyStore();
 
     cy.createNewNodes([
       { name: "Mobility", description: "Movement" },
@@ -143,6 +141,8 @@ describe("<App />", () => {
   context("which checks for skill completions", () => {
     it("completes skill when double clicked", () => {
       cy.mount(<App />);
+
+      cy.checkEmptyStore();
 
       cy.createNewNodes([{ name: "Mobility", description: "Movement" }]);
 
@@ -351,6 +351,8 @@ describe("<App />", () => {
     it("allows loops if they're not circular dependencies", () => {
       cy.mount(<App />);
 
+      cy.checkEmptyStore();
+
       cy.createNewNodes([
         { name: "Mobility", description: "Movement" },
         { name: "Agility", description: "Speed" },
@@ -391,6 +393,8 @@ describe("<App />", () => {
     it("doesn't allow circular dependencies between 2 nodes", () => {
       cy.mount(<App />);
 
+      cy.checkEmptyStore();
+
       cy.createNewNodes([
         { name: "Mobility", description: "Movement" },
         { name: "Agility", description: "Speed" },
@@ -421,6 +425,8 @@ describe("<App />", () => {
 
     it("doesn't allow circular dependencies between 3 nodes", () => {
       cy.mount(<App />);
+
+      cy.checkEmptyStore();
 
       cy.createNewNodes([
         { name: "Mobility", description: "Movement" },
@@ -461,6 +467,8 @@ describe("<App />", () => {
 
     it("doesn't allow circular dependencies between 4 nodes", () => {
       cy.mount(<App />);
+
+      cy.checkEmptyStore();
 
       cy.createNewNodes([
         { name: "Mobility", description: "Movement" },
@@ -510,6 +518,8 @@ describe("<App />", () => {
 
     it("doesn't allow circular dependencies between 3 nodes, with other nodes also in the chain", () => {
       cy.mount(<App />);
+
+      cy.checkEmptyStore();
 
       cy.createNewNodes([
         { name: "Mobility", description: "Movement" },

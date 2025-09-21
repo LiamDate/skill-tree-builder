@@ -24,22 +24,26 @@ No AI tools were used when making this application.
 - To create a skill, click the `Add Skill` button in the top left corner and fill in the form.
 - To view a skills details, click on that skill.
 - To complete a skill, double click on that skill.
-- To add a prerequisite, draw a line from one skills handle to the other.
+- To add a prerequisite, draw a line from one skills handle to anothers.
 
 ## Testing
 
 - I have used Vitest for the util unit tests, and Cypress for the component tests.
-- The unit tests sit inside `__tests__` in the utils folder, whereas the component tests sit inside the `cypress` area of the repo.
-- To run each set of tests, run:
+- The unit tests sit inside `src/utils/__tests__`, whereas the component tests sit inside the `cypress` area of the repo.
+- To run the unit tests, use:
 
 ```
 npm run test:unit
 ```
 
-and
+- To run the component tests in the command line (headless mode), use:
 
 ```
 npm run test:component
 ```
 
-respectively.
+- To run the component tests in the Cypress UI, use:
+
+```
+npm run test:component-ui
+```

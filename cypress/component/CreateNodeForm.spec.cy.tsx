@@ -37,6 +37,27 @@ describe("<CreateNodeForm />", () => {
         });
     });
 
+    it("doesn't allow more than 15 characters in the name field", () => {
+      const createStub = cy.stub();
+      cy.mount(<CreateNodeForm createNode={createStub} />);
+
+      cy.openCreateNodeForm();
+
+      const name = "A test name that is definitely more than 15 characters";
+
+      cy.fillCreateNodeForm({
+        name,
+        description: "Test description",
+        cost: 30,
+      });
+
+      cy.getByTestId("name-input-field")
+        .invoke("val")
+        .then((value) => {
+          expect(value).to.equal(name.slice(0, 15));
+        });
+    });
+
     it("passes validation if the add button is clicked with valid fields in the form", () => {
       const createStub = cy.stub();
       cy.mount(<CreateNodeForm createNode={createStub} />);

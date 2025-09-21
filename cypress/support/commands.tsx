@@ -38,18 +38,6 @@ Cypress.Commands.add(
 );
 
 /**
- * Hides React Flow elements that cover components in certain component tests.
- */
-Cypress.Commands.add("hideBlockingElements", () => {
-  document
-    .querySelector("react-flow__pane draggable")
-    ?.setAttribute("style", "visibility: hidden");
-  document
-    .querySelector(".react-flow__renderer")
-    ?.setAttribute("style", "visibility: hidden");
-});
-
-/**
  * Zooms out to the maximum point in order to keep all nodes on screen at once
  */
 Cypress.Commands.add("zoomOut", () => {
@@ -175,20 +163,33 @@ Cypress.Commands.add("checkStoreSize", (storesToCheck: IStoreCheck[]) => {
 });
 
 /**
+ * Checks that the local store is empty.
+ */
+Cypress.Commands.add("checkEmptyStore", () => {
+  cy.getAllLocalStorage().then((storage) => {
+    const localStorage = Object.values(storage)[0];
+    expect(localStorage).to.equal(undefined);
+  });
+});
+
+/**
  * Completes a skill node, if it can be completed.
  * @param {string} nodeId - The ID of the node to be completed.
  */
-Cypress.Commands.add("completeValidNode", (nodeId: string) => {
-  cy.getByTestId(`skill-node-${nodeId}`).should(
-    "have.class",
-    "skill-node-locked",
-  );
-  cy.getByTestId(`skill-node-inner-${nodeId}`).dblclick();
-  cy.getByTestId(`skill-node-${nodeId}`).should(
-    "have.class",
-    "skill-node-unlocked",
-  );
-});
+Cypress.Commands.add(
+  "completeValidNode",
+  (nodeId: string, clickOptions?: Partial<Cypress.ClickOptions>) => {
+    cy.getByTestId(`skill-node-${nodeId}`).should(
+      "have.class",
+      "skill-node-locked",
+    );
+    cy.getByTestId(`skill-node-inner-${nodeId}`).dblclick(clickOptions);
+    cy.getByTestId(`skill-node-${nodeId}`).should(
+      "have.class",
+      "skill-node-unlocked",
+    );
+  },
+);
 
 /**
  * Fails to compelte a skill node, if it can't be completed.
@@ -223,7 +224,6 @@ declare global {
         component: ReactElement,
         flowProps?: ReactFlowProps,
       ): Chainable<void>;
-      hideBlockingElements(): Chainable<void>;
       zoomOut(): Chainable<void>;
       openCreateNodeForm(): Chainable<void>;
       fillCreateNodeForm(fields: ICreateFormFields): Chainable<void>;
@@ -236,7 +236,11 @@ declare global {
         targetNode: IHandleDetails,
       ): Chainable<void>;
       checkStoreSize(storesToCheck: IStoreCheck[]): Chainable<void>;
-      completeValidNode(nodeId: string): Chainable<void>;
+      checkEmptyStore(): Chainable<void>;
+      completeValidNode(
+        nodeId: string,
+        clickOptions?: Partial<Cypress.ClickOptions>,
+      ): Chainable<void>;
       completeInvalidNode(nodeId: string): Chainable<void>;
     }
   }

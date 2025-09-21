@@ -12,7 +12,8 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write --list-different .",
     "test:unit": "vitest",
-    "test:component": "cypress open --component"
+    "test:component": "cypress run --component --headless",
+    "test:component-ui": "cypress open --component"
   },
   "dependencies": {
     "@xyflow/react": "^12.8.4",

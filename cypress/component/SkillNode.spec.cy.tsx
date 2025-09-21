@@ -10,9 +10,9 @@ describe("<SkillNode />", () => {
   it("unlocks when double clicked, if there are no prerequisites", () => {
     cy.mountFlowComponent(<SkillNode />, { nodes: mockNodes });
 
-    cy.hideBlockingElements();
+    cy.checkEmptyStore();
 
-    cy.completeValidNode("1");
+    cy.completeValidNode("1", { force: true });
 
     cy.checkStoreSize([
       { storageKey: consts.STORAGE_KEYS.COMPLETIONS, expectedSize: 1 },
